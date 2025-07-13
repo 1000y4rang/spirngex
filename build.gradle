@@ -31,6 +31,8 @@ dependencies {
     implementation("org.springframework:spring-core:5.3.19")
     implementation("org.springframework:spring-context:5.3.19")
     testImplementation("org.springframework:spring-test:5.3.19")
+    // 스프링 + 웹
+    implementation("org.springframework:spring-webmvc:5.3.19")
 
     // Lombok
     compileOnly("org.projectlombok:lombok:1.18.38")
@@ -46,6 +48,10 @@ dependencies {
 
     //  jstl
     implementation("javax.servlet:jstl:1.2")
+
+    // mariadb
+    implementation("org.mariadb.jdbc:mariadb-java-client:3.0.4")
+    implementation("com.zaxxer:HikariCP:5.0.1")
 
 }
 

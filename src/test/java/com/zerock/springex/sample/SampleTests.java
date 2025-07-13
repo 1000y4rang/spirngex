@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+
 @Log4j2
 @ExtendWith(SpringExtension.class)  // spring-test를 이용하기 위한 설정. (JUnit5버전)
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/root-context.xml")
@@ -16,9 +19,22 @@ public class SampleTests {
     @Autowired
     private SampleService sampleService;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Test
     public void testService() {
         log.info("sampleService : {}", sampleService);
         Assertions.assertNotNull(sampleService);
+    }
+
+    @Test
+    public void testConnection() throws Exception {
+        Connection connection = dataSource.getConnection();
+        log.info("connection : {}", connection);
+        Assertions.assertNotNull(connection);
+
+        connection.close();
+
     }
 }
