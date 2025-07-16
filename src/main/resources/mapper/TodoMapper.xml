@@ -14,5 +14,10 @@
         values
             (#{title}, #{dueDate}, #{writer})
     </insert>
+
+    <select id="selectAll"  resultType="com.zerock.springex.domain.TodoVO">
+        select *
+        from tbl_todo
+    </select>
 </mapper>
 
