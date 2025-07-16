@@ -10,4 +10,6 @@ public interface TodoService {
     void register(TodoDTO todoDTO);
     // 전체 조회
     List<TodoDTO> selectAll();
+    // 상세조회
+    TodoDTO selectOne(Long tno);
 }

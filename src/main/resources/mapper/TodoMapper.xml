@@ -19,5 +19,11 @@
         select *
         from tbl_todo
     </select>
+
+    <select id="selectOne" resultType="com.zerock.springex.domain.TodoVO">
+        select *
+        from tbl_todo
+        where tno = #{tno}
+    </select>
 </mapper>
 

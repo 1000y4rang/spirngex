@@ -54,4 +54,11 @@ public class TodoController {
         return "redirect:/todo/list";
     }
 
+    @GetMapping("/read")
+    public void read(Long tno,Model model){
+        // 상세조회
+        TodoDTO dto = todoService.selectOne(tno);
+        model.addAttribute("dto",dto);
+    }
+
 }
