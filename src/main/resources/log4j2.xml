@@ -11,8 +11,13 @@
         <logger name="org.springframework" level="INFO" additivity="false">
             <appender-ref ref="console"/>
         </logger>
-        <logger name="org.zerock" level="INFO" additivity="false">
+        <logger name="com.zerock" level="INFO" additivity="false">
             <appender-ref ref="console"/>
+        </logger>
+
+        <!--mapper 는 SQL 로그-->
+        <logger name="com.zerock.springex.mapper" level="TRACE" additivity="false">
+            <appender-ref ref="console" />
         </logger>
 
         <root level="INFO">

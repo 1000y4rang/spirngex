@@ -1,27 +1,19 @@
-package com.zerock.springex.dto;
+package com.zerock.springex.domain;
 
 import lombok.*;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
+@Getter
+// @Setter setter대신에 builder를 사용한 듯
 @ToString
-@Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class TodoDTO {
+@AllArgsConstructor
+public class TodoVO {
     private Long tno;
-
-    @NotEmpty
     private String title;
-
-    @Future
     private LocalDate dueDate;
-
     private boolean finished;
-
-    @NotEmpty
     private String writer;
 }
