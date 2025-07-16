@@ -4,11 +4,6 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--http://www.springframework.org/schema/mvc-->
-    <mvc:annotation-driven></mvc:annotation-driven>
-    <!--정적인 파일 (html, css, js, 이미지)-->
-    <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
-
     <!--스프링 mvc 뷰(view)설정 : InternalResourceViewResolver-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/"></property>
@@ -16,4 +11,21 @@
     </bean>
 
     <context:component-scan base-package="com.zerock.springex.controller"/>
+
+    <!--url 주소의 파라미터가 날짜일 때 사용 : LocalDateFormatter-->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="com.zerock.springex.controller.formatter.LocalDateFormatter"/>
+            </set>
+        </property>
+    </bean>
+
+    <!--스프링 mvc 처리할 때 어노테이션을 사용
+    LocalDateFormatter 빈을 사용한다는 것-->
+    <mvc:annotation-driven conversion-service="conversionService"/>
+    <!--http://www.springframework.org/schema/mvc-->
+    <!--<mvc:annotation-driven></mvc:annotation-driven>-->
+    <!--정적인 파일 (html, css, js, 이미지)-->
+    <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
 </beans>

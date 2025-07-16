@@ -1,5 +1,6 @@
 package com.zerock.springex.controller;
 
+import com.zerock.springex.dto.TodoDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,9 @@ public class TodoController {
         log.info("/todo/register...");
     }
 
-    @PostMapping("/registerPost")
-    public void registerPost(){
+    @PostMapping("/register")
+    public void register(TodoDTO  todoDTO){
         log.info("/todo/registerPost...");
+        log.info(todoDTO.toString());
     }
 }
