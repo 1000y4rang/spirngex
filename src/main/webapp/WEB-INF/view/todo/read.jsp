@@ -18,9 +18,7 @@
 
     <title>Hello, world!</title>
 </head>
-<script>
 
-</script>
 <body>
     <div class="card-body">
         <div class="input-group mb-3">
@@ -47,8 +45,8 @@
         </div>
         <div class="mb-4">
             <div class="float-end">
-                <button type="button" class="btn btn-primary">Modify</button>
-                <button type="button" class="btn btn-secondary">List</button>
+                <button type="button" class="btn-primary">Modify</button>
+                <button type="button" class="btn-secondary">List</button>
             </div>
         </div>
     <%--    <div class="row footer">
@@ -60,4 +58,14 @@
         </div>--%>
     </div>
 </body>
+<script>
+    /*스크립트가 body 아래에 있어야 먹힌다. 설정 잘못된 듯 */
+    document.querySelector(".btn-primary").addEventListener("click", function(e){
+        self.location = "/todo/modify?tno="+${dto.tno};
+    }, false);
+
+    document.querySelector(".btn-secondary").addEventListener("click", function(e){
+        self.location = "/todo/list";
+    }, false);
+</script>
 </html>
