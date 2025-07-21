@@ -13,11 +13,13 @@
 
     <context:component-scan base-package="com.zerock.springex.controller"/>
 
-    <!--url 주소의 파라미터가 날짜일 때 사용 : LocalDateFormatter-->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="formatters">
             <set>
+                <!--url 주소의 파라미터가 날짜일 때 사용 : LocalDateFormatter-->
                 <bean class="com.zerock.springex.controller.formatter.LocalDateFormatter"/>
+                <!--체크박스 체크가 on일 때 사용 : CheckboxFormatter-->
+                <bean class="com.zerock.springex.controller.formatter.CheckboxFormatter"/>
             </set>
         </property>
     </bean>

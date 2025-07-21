@@ -54,11 +54,34 @@ public class TodoController {
         return "redirect:/todo/list";
     }
 
-    @GetMapping("/read")
+    @GetMapping({"/read", "/modify"})
     public void read(Long tno,Model model){
         // 상세조회
         TodoDTO dto = todoService.selectOne(tno);
         model.addAttribute("dto",dto);
+    }
+
+    @PostMapping("/remove")
+    public String remove(Long tno, RedirectAttributes redirectAttributes){
+        // 삭제
+        todoService.remove(tno);
+        return "redirect:/todo/list";
+    }
+
+    @PostMapping("/modify")
+    public String modify(@Valid TodoDTO  todoDTO,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes){
+        // 작동안함
+        /*if(bindingResult.hasErrors()){
+            log.info("validation error");
+            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("tno",todoDTO.getTno());
+            return "redirect:/todo/list";
+        }*/
+        // 수정
+        todoService.modify(todoDTO);
+        return "redirect:/todo/list ";
     }
 
 }

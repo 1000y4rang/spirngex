@@ -44,4 +44,17 @@ public class TodoServiceImpl implements TodoService {
 
         return dto;
     }
+
+    @Override
+    public void remove(Long tno) {
+        // 삭제
+        todoMapper.delete(tno);
+    }
+
+    @Override
+    public void modify(TodoDTO todoDTO) {
+        // 수정
+        TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
+        todoMapper.update(todoVO);
+    }
 }

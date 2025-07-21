@@ -1,6 +1,7 @@
 package com.zerock.springex.mapper;
 
 import com.zerock.springex.domain.TodoVO;
+import com.zerock.springex.dto.PageRequestDTO;
 
 import java.util.List;
 
@@ -13,4 +14,12 @@ public interface TodoMapper {
     List<TodoVO> selectAll();
     // 상세조회
     TodoVO selectOne(Long tno);
+    // 삭제
+    void delete(Long tno);
+    // 수정
+    void update(TodoVO todoVO);
+    // 페이징 조회
+    List<TodoVO> selectList(PageRequestDTO pageRequestDTO);
+    // 전체 데이터 수
+    int getCount(PageRequestDTO pageRequestDTO);
 }

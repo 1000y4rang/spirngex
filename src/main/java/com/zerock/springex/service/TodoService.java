@@ -12,4 +12,8 @@ public interface TodoService {
     List<TodoDTO> selectAll();
     // 상세조회
     TodoDTO selectOne(Long tno);
+    // 삭제
+    void remove(Long tno);
+    // 수정
+    void modify(TodoDTO todoDTO);
 }

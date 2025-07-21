@@ -45,8 +45,8 @@
         </div>
         <div class="mb-4">
             <div class="float-end">
-                <button type="button" class="btn-primary">Modify</button>
-                <button type="button" class="btn-secondary">List</button>
+                <button type="button" class="btn btn-primary">Modify</button>
+                <button type="button" class="btn btn-secondary">List</button>
             </div>
         </div>
     <%--    <div class="row footer">
@@ -60,10 +60,12 @@
 </body>
 <script>
     /*스크립트가 body 아래에 있어야 먹힌다. 설정 잘못된 듯 */
+    // 수정 버튼 클릭
     document.querySelector(".btn-primary").addEventListener("click", function(e){
         self.location = "/todo/modify?tno="+${dto.tno};
     }, false);
 
+    // 리스트 버튼 클릭
     document.querySelector(".btn-secondary").addEventListener("click", function(e){
         self.location = "/todo/list";
     }, false);
