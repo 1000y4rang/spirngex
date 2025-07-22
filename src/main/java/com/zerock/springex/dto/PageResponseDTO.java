@@ -1,9 +1,13 @@
 package com.zerock.springex.dto;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
+@ToString
+@Getter
 public class PageResponseDTO<E> {
 
     private int page;
@@ -20,6 +24,8 @@ public class PageResponseDTO<E> {
     // 다음 페이지 존재 여부
     private boolean next;
 
+    // 이거쓰면 리스트 형식으로 받을 수 있나봄
+    // PageResponseDTO<TodoDTO> => List<TodoDTO> ?
     private List<E> dtoList;
 
     // 생성자

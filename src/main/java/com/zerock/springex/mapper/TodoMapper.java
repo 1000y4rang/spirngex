@@ -18,8 +18,8 @@ public interface TodoMapper {
     void delete(Long tno);
     // 수정
     void update(TodoVO todoVO);
-    // 페이징 조회
-    List<TodoVO> selectList(PageRequestDTO pageRequestDTO);
     // 전체 데이터 수
     int getCount(PageRequestDTO pageRequestDTO);
+    // 페이징 조회
+    List<TodoVO> selectList(PageRequestDTO pageRequestDTO);
 }

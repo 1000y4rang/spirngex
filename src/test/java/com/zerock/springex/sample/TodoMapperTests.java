@@ -2,6 +2,7 @@ package com.zerock.springex.sample;
 
 import com.zerock.springex.domain.TodoVO;
 import com.zerock.springex.dto.PageRequestDTO;
+import com.zerock.springex.dto.PageResponseDTO;
 import com.zerock.springex.dto.TodoDTO;
 import com.zerock.springex.mapper.TodoMapper;
 import com.zerock.springex.service.TodoService;
@@ -72,5 +73,15 @@ public class TodoMapperTests {
                                     .build();
         List<TodoVO> list = todoMapper.selectList(pageRequestDTO);
         list.forEach(todoVO -> log.info(todoVO));
+    }
+
+    @Test
+    public void testPaging(){
+        
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).size(10).build();
+        PageResponseDTO<TodoDTO> pageResponseDTO = todoService.getList(pageRequestDTO);
+        log.info(pageResponseDTO);
+        pageResponseDTO.getDtoList().stream().forEach(todoDTO -> log.info(todoDTO));
+
     }
 }
