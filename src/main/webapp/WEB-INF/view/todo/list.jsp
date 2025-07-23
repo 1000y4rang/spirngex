@@ -34,11 +34,12 @@
         </tr>
       </thead>
       <tbody>
-      <c:forEach items="${dtoList}" var="dto">
+      <%--<c:forEach items="${dtoList}" var="dto">--%>
+      <c:forEach items="${responseDTO.dtoList}" var="dto">
         <tr>
           <th scope="row"><c:out value="${dto.tno}"/> </th>
           <td>
-            <a href="/todo/read?tno=${dto.tno}" class="text-decoration-none">
+            <a href="/todo/read?tno=${dto.tno}&${pageRequestDTO.link}" class="text-decoration-none">
               <c:out value="${dto.title}"/>
             </a>
           </td>
@@ -50,6 +51,50 @@
 
       </tbody>
     </table>
+    <div class="float-end">
+      <ul class="pagination flex-wrap">
+        <%--이전페이지--%>
+        <c:if test="${responseDTO.prev}">
+          <li class="page-item">
+            <%--data-num 이벤트 처리를 위한 속성 추가--%>
+            <a class="page-link" data-num="${responseDTO.start-1}">Previous</a>
+          </li>
+        </c:if>
+        <c:forEach begin="${responseDTO.start}" end="${responseDTO.end}" var="num">
+          <%--현재페이지 활성화 : active--%>
+          <li class="page-item ${responseDTO.page == num? "active":""}">
+           <%--data-num 이벤트 처리를 위한 속성 추가--%>
+            <a class="page-link" data-num="${num}">${num}</a>
+          </li>
+        </c:forEach>
+        <%--다음페이지--%>
+        <c:if test="${responseDTO.next}">
+          <li class="page-item">
+            <%--data-num 이벤트 처리를 위한 속성 추가--%>
+            <a class="page-link" data-num="${responseDTO.end+1}">Next</a>
+          </li>
+        </c:if>
+      </ul>
+    </div>
   </div>
 </body>
+<script>
+  document.querySelector(".pagination").addEventListener("click", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    const target = e.target;
+
+    if(target.tagName !== "A"){
+      return;
+    }
+
+    const num = target.getAttribute("data-num");
+
+    // `(백틱) 문자열과 결합할 때 + 를 쓰는 불편함을 줄일 수 있다.
+    // \${}는 jsp의 el이 아닐 때 사용한다.
+    self.location = `/todo/list?page=\${num}`;
+
+  }, false)
+</script>
 </html>

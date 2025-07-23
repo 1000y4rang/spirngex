@@ -1,5 +1,6 @@
 package com.zerock.springex.controller;
 
+import com.zerock.springex.dto.PageRequestDTO;
 import com.zerock.springex.dto.TodoDTO;
 import com.zerock.springex.service.TodoService;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +25,25 @@ public class TodoController {
 
     private final TodoService todoService;
 
-    @RequestMapping("/list")
+    /*@RequestMapping("/list")
     public void list(Model model) {
         model.addAttribute("dtoList",todoService.selectAll());
+    }*/
+    @GetMapping("/list")
+    public void list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            // @Valid를 통해 파라미터 값이 잘못 들어오면 default 값인 page 1, size 10이 적용됨 
+            pageRequestDTO = PageRequestDTO.builder().build();
+        }
+
+        model.addAttribute("responseDTO"
+                , todoService.getList(pageRequestDTO)); // 페이징 파라미터를 넣으면 페이징 리스트, 페이징에 필요한 값들 리턴
+
     }
 
-    //@RequestMapping(value = "/register", method = RequestMethod.GET)
+
+    //@RequestMapping(value = "/register",
+    // method = RequestMethod.GET)
     @GetMapping("/register")
     public void register(){
 
@@ -55,21 +69,25 @@ public class TodoController {
     }
 
     @GetMapping({"/read", "/modify"})
-    public void read(Long tno,Model model){
+    public void read(Long tno, PageRequestDTO pageRequestDTO, Model model){
         // 상세조회
         TodoDTO dto = todoService.selectOne(tno);
         model.addAttribute("dto",dto);
     }
 
     @PostMapping("/remove")
-    public String remove(Long tno, RedirectAttributes redirectAttributes){
+    public String remove(Long tno, PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes){
         // 삭제
         todoService.remove(tno);
+
+        redirectAttributes.addAttribute("page", 1);
+        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
         return "redirect:/todo/list";
     }
 
     @PostMapping("/modify")
-    public String modify(@Valid TodoDTO  todoDTO,
+    public String modify(PageRequestDTO pageRequestDTO,
+                         @Valid TodoDTO  todoDTO,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes){
         // 작동안함
@@ -79,9 +97,13 @@ public class TodoController {
             redirectAttributes.addAttribute("tno",todoDTO.getTno());
             return "redirect:/todo/list";
         }*/
+
         // 수정
         todoService.modify(todoDTO);
-        return "redirect:/todo/list ";
+
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
+        return "redirect:/todo/list";
     }
 
 }

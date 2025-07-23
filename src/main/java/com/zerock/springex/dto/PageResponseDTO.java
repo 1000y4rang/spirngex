@@ -31,7 +31,9 @@ public class PageResponseDTO<E> {
     // 생성자
     @Builder(builderMethodName = "withAll")
     public PageResponseDTO(PageRequestDTO pageRequestDTO, List<E> dtoList, int total) {
+        // 현재페이지
         this.page = pageRequestDTO.getPage();
+        // 글 목록 수 
         this.size = pageRequestDTO.getSize();
         this.total = total;
         this.dtoList = dtoList;
