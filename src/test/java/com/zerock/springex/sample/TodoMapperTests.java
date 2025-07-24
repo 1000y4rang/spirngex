@@ -84,4 +84,21 @@ public class TodoMapperTests {
         pageResponseDTO.getDtoList().stream().forEach(todoDTO -> log.info(todoDTO));
 
     }
+
+    @Test
+    public void tsetSelectionSearch(){
+        // 검색 테스트
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .types(new String[]{"t", "w"})
+                .keyword("제목")
+                .finished(false)
+                .from(LocalDate.of(2025, 7, 16))
+                .to(LocalDate.of(2025, 7, 31))
+                .build();
+
+        List<TodoVO> list = todoMapper.selectList(pageRequestDTO);
+        list.forEach(todoVO -> log.info(todoVO));
+    }
 }

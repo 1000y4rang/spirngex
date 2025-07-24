@@ -5,6 +5,8 @@ import lombok.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
+import java.time.LocalDate;
+import java.util.Arrays;
 
 @Builder
 @Data
@@ -37,5 +39,21 @@ public class PageRequestDTO {
             link = builder.toString();
         }
         return link;
+    }
+
+    // 검색용
+    private String[] types;     // 타입 t:제목, w:작성자
+    private String keyword;     // 검색어
+    private boolean finished;   // 완료여부
+    private LocalDate from;     // 기간
+    private LocalDate to;
+
+    // 체크박스 저장용
+    public boolean checkType(String type){
+        if(types == null || types.length == 0){
+            return false;
+        }
+        // return t 또는 w
+        return Arrays.stream(types).anyMatch(type::equals);
     }
 }
